@@ -100,7 +100,7 @@ const HINT2 = "q w e r u i o p a s d f j k l ö z x c v m , . -";
 
 // Mode id (used in the URL hash and image file names) -> key id -> [category, action label].
 const MODES = {
-  off: { lalt: ["mode", "Hold+⌫: on"], bksp: ["mode", "Alt+⌫: on"], tab: ["nav", "Hold+h/l: desktop"], h: ["nav", "Tab+h: Desk ←"], l: ["nav", "Tab+l: Desk →"] },
+  off: { lalt: ["mode", "Hold+⌫: on"], bksp: ["mode", "Alt+⌫: on Shift+Alt+⌫: hints"], lshift: ["mode", "+Alt+⌫: hints"], tab: ["nav", "Hold+h/l: desktop"], h: ["nav", "Tab+h: Desk ←"], l: ["nav", "Tab+l: Desk →"] },
   normal: { ...dirs(""),
     "ö": ["click", "Left"], menu: ["click", "Left"], "ä": ["click", "Right"], rshift: ["click", "Middle"], n: ["click", "Toggle L"], ".": ["exit", "Click, off"],
     ",": ["wheel", "Scroll ↑"], m: ["wheel", "Scroll ↓"], u: ["wheel", "Scroll ←"], o: ["wheel", "Scroll →"],

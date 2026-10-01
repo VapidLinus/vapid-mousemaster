@@ -15,7 +15,7 @@ cd C:\Apps\mousemaster
 
 | Turn on | Turn off | Turn off, and the key still reaches the app |
 |---|---|---|
-| Hold <kbd>Left Alt</kbd>, press <kbd>⌫</kbd> | <kbd>q</kbd> <kbd>p</kbd> <kbd>Esc</kbd> <kbd>Alt</kbd>+<kbd>⌫</kbd><br><kbd>.</kbd> clicks, then turns off | <kbd>Ctrl</kbd>+<kbd>F</kbd> <kbd>Ctrl</kbd>+<kbd>L</kbd> <kbd>Ctrl</kbd>+<kbd>E</kbd><br><kbd>F2</kbd> <kbd>F3</kbd> <kbd>/</kbd> |
+| Hold <kbd>Left Alt</kbd>, press <kbd>⌫</kbd><br>Add <kbd>Shift</kbd> to start in hints | <kbd>q</kbd> <kbd>p</kbd> <kbd>Esc</kbd> <kbd>Alt</kbd>+<kbd>⌫</kbd><br><kbd>.</kbd> clicks, then turns off | <kbd>Ctrl</kbd>+<kbd>F</kbd> <kbd>Ctrl</kbd>+<kbd>L</kbd> <kbd>Ctrl</kbd>+<kbd>E</kbd><br><kbd>F2</kbd> <kbd>F3</kbd> <kbd>/</kbd> |
 
 Indicator next to the pointer: 🔴 on · 🟡 scrolling · 🟢 button held.
 
@@ -78,7 +78,7 @@ Arrow keys do the same as <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> fo
 | **Edge** | hold <kbd>Left Ctrl</kbd> | <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> jump to that screen edge | release Ctrl |
 | **Grid** | <kbd>g</kbd> | <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> keep that half, pointer follows its centre | <kbd>g</kbd> <kbd>Esc</kbd> back · <kbd>q</kbd> <kbd>p</kbd> off |
 | **Window** | hold <kbd>Left Shift</kbd>, press <kbd>g</kbd> | <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> jump to that window edge · <kbd>g</kbd> centre | release Shift |
-| **Hints** | <kbd>f</kbd> | type a label to jump there · hold <kbd>Shift</kbd> on the last letter for fine hints | pick a hint · <kbd>Esc</kbd> <kbd>⌫</kbd> |
+| **Hints** | <kbd>f</kbd>, or <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>⌫</kbd> from off | type a label to jump there · hold <kbd>Shift</kbd> on the last letter for fine hints | pick a hint · <kbd>Esc</kbd> <kbd>⌫</kbd> |
 | **Fine hints** | <kbd>Shift</kbd> + last hint letter | smaller grid around that spot, zoomed 5× | pick a hint · <kbd>Esc</kbd> back · <kbd>⌫</kbd> to hints |
 | **Screens** | <kbd>c</kbd> | <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> <kbd>ö</kbd> <kbd>a</kbd> <kbd>s</kbd> … jump to that monitor | <kbd>c</kbd> <kbd>Esc</kbd> <kbd>⌫</kbd> back · <kbd>q</kbd> <kbd>p</kbd> off |
 | **UI hints** | <kbd>Alt</kbd>+<kbd>f</kbd> | type a label on a button or link to jump to it | pick a hint · <kbd>Esc</kbd> <kbd>⌫</kbd> off |
