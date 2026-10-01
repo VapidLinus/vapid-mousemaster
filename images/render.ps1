@@ -12,7 +12,7 @@ $page = 'file:///' + ((Join-Path $PSScriptRoot 'keyboard.html') -replace '\\', '
 # Separate profile so a running browser window isn't reused.
 $userData = Join-Path $env:TEMP 'mousemaster-render'
 
-foreach ($mode in 'normal', 'edge', 'grid', 'window', 'hint', 'fine', 'screen', 'ui', 'off') {
+foreach ($mode in 'normal', 'edge', 'grid', 'window', 'hint', 'fine', 'screen', 'ui', 'recursive', 'off') {
   foreach ($theme in 'light', 'dark') {
     $out = Join-Path $PSScriptRoot "$mode-$theme.png"
     Start-Process -FilePath $browser -Wait -WindowStyle Hidden -ArgumentList @(

@@ -47,6 +47,9 @@ Indicator next to the pointer: 🔴 on · 🟡 scrolling · 🟢 button held.
 <details><summary>UI hints keyboard</summary>
 <picture><source media="(prefers-color-scheme: dark)" srcset="images/ui-dark.png"><img alt="UI hint mode keys" src="images/ui-light.png"></picture>
 </details>
+<details><summary>Recursive hints keyboard</summary>
+<picture><source media="(prefers-color-scheme: dark)" srcset="images/recursive-dark.png"><img alt="Recursive hint mode keys" src="images/recursive-light.png"></picture>
+</details>
 <details><summary>Off keyboard</summary>
 <picture><source media="(prefers-color-scheme: dark)" srcset="images/off-dark.png"><img alt="Keys that work while mousemaster is off" src="images/off-light.png"></picture>
 </details>
@@ -82,9 +85,11 @@ Arrow keys do the same as <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> fo
 | **Fine hints** | <kbd>Shift</kbd> + last hint letter | smaller grid around that spot, zoomed 5× | pick a hint · <kbd>Esc</kbd> back · <kbd>⌫</kbd> to hints |
 | **Screens** | <kbd>c</kbd> | <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> <kbd>ö</kbd> <kbd>a</kbd> <kbd>s</kbd> … jump to that monitor | <kbd>c</kbd> <kbd>Esc</kbd> <kbd>⌫</kbd> back · <kbd>q</kbd> <kbd>p</kbd> off |
 | **UI hints** | <kbd>Alt</kbd>+<kbd>f</kbd>, or <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>⌫</kbd> from off | type a label on a button or link to jump to it | pick a hint · <kbd>Esc</kbd> <kbd>⌫</kbd> back |
+| **Recursive hints** | <kbd>r</kbd> | <kbd>u</kbd><kbd>i</kbd><kbd>o</kbd> <kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> <kbd>m</kbd><kbd>,</kbd><kbd>.</kbd> narrow to that ninth of the grid, up to 5 levels · <kbd>⌫</kbd> up a level · <kbd>Space</kbd> full screen · <kbd>ö</kbd> <kbd>ä</kbd> click | <kbd>Esc</kbd> back · <kbd>q</kbd> <kbd>p</kbd> off |
 
 - **Edge** snaps to an invisible box 80% wide and 95% tall in the middle of the screen, not the outermost pixel. Click keys still work, so Ctrl-click is available here.
 - **Window** puts its top edge 15 px into the window, on the title bar, so you can grab it and drag.
+- **Recursive hints** move the pointer to the centre of the grid after each key. Grey letters in each cell preview the next level's keys. The fifth level's cells are too small for labels, but the same keys still pick the same ninths.
 
 ## Tuning
 
@@ -95,7 +100,7 @@ Arrow keys do the same as <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> fo
 | Normal | | 2 200 | 800 | 2 000 |
 | Fast | <kbd>v</kbd> | 4 500 | 3 000 | 10 000 |
 
-The pointer starts at 0 and accelerates. Scrolling starts at 1 500. While mousemaster is on, Shift, v and ⌫ don't reach the app, so holding them for speed types nothing and doesn't turn a vertical scroll sideways. With Shift held, <kbd>f</kbd>, <kbd>c</kbd>, <kbd>t</kbd> and <kbd>y</kbd> do nothing.
+The pointer starts at 0 and accelerates. Scrolling starts at 1 500. While mousemaster is on, Shift, v and ⌫ don't reach the app, so holding them for speed types nothing and doesn't turn a vertical scroll sideways. With Shift held, <kbd>f</kbd>, <kbd>c</kbd>, <kbd>r</kbd>, <kbd>t</kbd> and <kbd>y</kbd> do nothing.
 
 | Screen | Hint cell (px) | Hint layout (rows × columns) | Fine hint cell (px) | Fine hint max (rows × columns) |
 |---|--:|--:|--:|--:|
