@@ -277,8 +277,9 @@
             const MODES = {
                 off: {
                     lalt: ["mode", "Hold+⌫: on"],
-                    bksp: ["mode", "Alt+⌫: on Shift+Alt+⌫: hints"],
+                    bksp: ["mode", "Alt+⌫: on"],
                     lshift: ["mode", "+Alt+⌫: hints"],
+                    lctrl: ["mode", "+Alt+⌫: UI hints"],
                     tab: ["nav", "Hold+h/l: desktop"],
                     h: ["nav", "Tab+h: Desk ←"],
                     l: ["nav", "Tab+l: Desk →"],
@@ -352,8 +353,8 @@
                 },
                 ui: {
                     ...hintKeys(HINT1),
-                    esc: ["exit", "Off"],
-                    bksp: ["exit", "Off"],
+                    esc: ["mode", "Back"],
+                    bksp: ["mode", "Back"],
                 },
             };
 
