@@ -5,154 +5,397 @@
   The bindings below are copied by hand from mousemaster.properties: update MODES when the config changes.
 -->
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Mousemaster keyboard</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=Archivo:wght@500&display=swap">
-<style>
-/* Every size is a multiple of --u, so the panel fills a 920 × 431 viewport exactly. */
-:root {
-  --u: calc(100vw / 16.86);
-  --gap: calc(var(--u) * 0.09);
-  --pad: calc(var(--u) * 0.3);
-  --surface: #f6f8fa; --edge: #d1d9e0; --text: #59636e;
-  --key: #ffffff; --key-edge: #c8d1da; --key-dim: #8c959f;
-  --move: #1f5fc4; --move-bg: #dbe7fb;
-  --click: #1b7a3c; --click-bg: #d6f0df;
-  --wheel: #855d00; --wheel-bg: #faecc0;
-  --speed: #6a3ec2; --speed-bg: #e8dffb;
-  --mode: #0c707c; --mode-bg: #d1eef1;
-  --exit: #b42318; --exit-bg: #f9dad6;
-  --nav: #474f5d; --nav-bg: #e2e6ec;
-  --hint: #6e5100; --hint-bg: #ffe27a;
-}
-:root[data-theme="dark"] {
-  --surface: #161b22; --edge: #30363d; --text: #9198a1;
-  --key: #222730; --key-edge: #08090c; --key-dim: #5e6673;
-  --move: #93b8ff; --move-bg: #1b2d4c;
-  --click: #82d9a3; --click-bg: #163725;
-  --wheel: #f1c85e; --wheel-bg: #3a2e0f;
-  --speed: #bfa6ff; --speed-bg: #2c224f;
-  --mode: #72d4de; --mode-bg: #11393d;
-  --exit: #ff9d92; --exit-bg: #491c18;
-  --nav: #b6bcc7; --nav-bg: #2a303a;
-  --hint: #ffd93d; --hint-bg: #3c330f;
-}
-* { box-sizing: border-box; }
-html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; }
-.panel {
-  height: 100vh; padding: var(--pad); display: flex; flex-direction: column; gap: var(--gap);
-  background: var(--surface); border: 1px solid var(--edge); border-radius: calc(var(--u) * 0.22);
-}
-.row { display: flex; gap: var(--gap); }
-.row.fn { margin-bottom: calc(var(--u) * 0.15); }
-.k {
-  flex: 0 0 auto; height: var(--u); border-radius: calc(var(--u) * 0.11);
-  padding: calc(var(--u) * 0.07) calc(var(--u) * 0.11);
-  display: flex; flex-direction: column; justify-content: space-between;
-  background: var(--key); border: 1px solid var(--key-edge); border-bottom-width: calc(var(--u) * 0.055);
-  font-family: "JetBrains Mono", Consolas, monospace; color: var(--key-dim);
-}
-.k.gap { visibility: hidden; }
-.cap { font-size: calc(var(--u) * 0.25); font-weight: 700; line-height: 1; }
-.act { font-size: calc(var(--u) * 0.19); font-weight: 700; line-height: 1.1; }
-.act.long { font-size: calc(var(--u) * 0.16); }
-.k[data-cat] { color: var(--c); background: var(--cb); border-color: color-mix(in srgb, var(--c) 45%, transparent); }
-.legend {
-  margin-top: auto; height: calc(var(--u) * 0.4); display: flex; align-items: center; gap: calc(var(--u) * 0.3);
-  font: 500 calc(var(--u) * 0.24) / 1 Archivo, "Segoe UI", sans-serif; color: var(--text);
-}
-.legend span { display: inline-flex; align-items: center; gap: calc(var(--u) * 0.1); }
-.legend i { width: calc(var(--u) * 0.24); height: calc(var(--u) * 0.24); border-radius: 3px; background: var(--cb); border: 1px solid var(--c); }
-[data-cat="move"] { --c: var(--move); --cb: var(--move-bg); }
-[data-cat="click"] { --c: var(--click); --cb: var(--click-bg); }
-[data-cat="wheel"] { --c: var(--wheel); --cb: var(--wheel-bg); }
-[data-cat="speed"] { --c: var(--speed); --cb: var(--speed-bg); }
-[data-cat="mode"] { --c: var(--mode); --cb: var(--mode-bg); }
-[data-cat="exit"] { --c: var(--exit); --cb: var(--exit-bg); }
-[data-cat="nav"] { --c: var(--nav); --cb: var(--nav-bg); }
-[data-cat="hint"] { --c: var(--hint); --cb: var(--hint-bg); }
-</style>
-</head>
-<body>
-<div class="panel" id="panel"></div>
-<script>
-const CATS = [
-  ["move", "Move / snap"], ["click", "Click"], ["wheel", "Scroll"], ["speed", "Speed"],
-  ["mode", "Mode switch"], ["exit", "Off"], ["nav", "Shortcut"], ["hint", "Hint letter"],
-];
+    <head>
+        <meta charset="utf-8" />
+        <title>Mousemaster keyboard</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=Archivo:wght@500&display=swap"
+        />
+        <style>
+            /* Every size is a multiple of --u, so the panel fills a 920 × 431 viewport exactly. */
+            :root {
+                --u: calc(100vw / 16.86);
+                --gap: calc(var(--u) * 0.09);
+                --pad: calc(var(--u) * 0.3);
+                --surface: #f6f8fa;
+                --edge: #d1d9e0;
+                --text: #59636e;
+                --key: #ffffff;
+                --key-edge: #c8d1da;
+                --key-dim: #8c959f;
+                --move: #1f5fc4;
+                --move-bg: #dbe7fb;
+                --click: #1b7a3c;
+                --click-bg: #d6f0df;
+                --wheel: #855d00;
+                --wheel-bg: #faecc0;
+                --speed: #6a3ec2;
+                --speed-bg: #e8dffb;
+                --mode: #0c707c;
+                --mode-bg: #d1eef1;
+                --exit: #b42318;
+                --exit-bg: #f9dad6;
+                --nav: #474f5d;
+                --nav-bg: #e2e6ec;
+                --hint: #6e5100;
+                --hint-bg: #ffe27a;
+            }
+            :root[data-theme="dark"] {
+                --surface: #161b22;
+                --edge: #30363d;
+                --text: #9198a1;
+                --key: #222730;
+                --key-edge: #08090c;
+                --key-dim: #5e6673;
+                --move: #93b8ff;
+                --move-bg: #1b2d4c;
+                --click: #82d9a3;
+                --click-bg: #163725;
+                --wheel: #f1c85e;
+                --wheel-bg: #3a2e0f;
+                --speed: #bfa6ff;
+                --speed-bg: #2c224f;
+                --mode: #72d4de;
+                --mode-bg: #11393d;
+                --exit: #ff9d92;
+                --exit-bg: #491c18;
+                --nav: #b6bcc7;
+                --nav-bg: #2a303a;
+                --hint: #ffd93d;
+                --hint-bg: #3c330f;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                height: 100%;
+                background: transparent;
+                overflow: hidden;
+            }
+            .panel {
+                height: 100vh;
+                padding: var(--pad);
+                display: flex;
+                flex-direction: column;
+                gap: var(--gap);
+                background: var(--surface);
+                border: 1px solid var(--edge);
+                border-radius: calc(var(--u) * 0.22);
+            }
+            .row {
+                display: flex;
+                gap: var(--gap);
+            }
+            .row.fn {
+                margin-bottom: calc(var(--u) * 0.15);
+            }
+            .k {
+                flex: 0 0 auto;
+                height: var(--u);
+                border-radius: calc(var(--u) * 0.11);
+                padding: calc(var(--u) * 0.07) calc(var(--u) * 0.11);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                background: var(--key);
+                border: 1px solid var(--key-edge);
+                border-bottom-width: calc(var(--u) * 0.055);
+                font-family: "JetBrains Mono", Consolas, monospace;
+                color: var(--key-dim);
+            }
+            .k.gap {
+                visibility: hidden;
+            }
+            .cap {
+                font-size: calc(var(--u) * 0.25);
+                font-weight: 700;
+                line-height: 1;
+            }
+            .act {
+                font-size: calc(var(--u) * 0.19);
+                font-weight: 700;
+                line-height: 1.1;
+            }
+            .act.long {
+                font-size: calc(var(--u) * 0.16);
+            }
+            .k[data-cat] {
+                color: var(--c);
+                background: var(--cb);
+                border-color: color-mix(in srgb, var(--c) 45%, transparent);
+            }
+            .legend {
+                margin-top: auto;
+                height: calc(var(--u) * 0.4);
+                display: flex;
+                align-items: center;
+                gap: calc(var(--u) * 0.3);
+                font:
+                    500 calc(var(--u) * 0.24) / 1 Archivo,
+                    "Segoe UI",
+                    sans-serif;
+                color: var(--text);
+            }
+            .legend span {
+                display: inline-flex;
+                align-items: center;
+                gap: calc(var(--u) * 0.1);
+            }
+            .legend i {
+                width: calc(var(--u) * 0.24);
+                height: calc(var(--u) * 0.24);
+                border-radius: 3px;
+                background: var(--cb);
+                border: 1px solid var(--c);
+            }
+            [data-cat="move"] {
+                --c: var(--move);
+                --cb: var(--move-bg);
+            }
+            [data-cat="click"] {
+                --c: var(--click);
+                --cb: var(--click-bg);
+            }
+            [data-cat="wheel"] {
+                --c: var(--wheel);
+                --cb: var(--wheel-bg);
+            }
+            [data-cat="speed"] {
+                --c: var(--speed);
+                --cb: var(--speed-bg);
+            }
+            [data-cat="mode"] {
+                --c: var(--mode);
+                --cb: var(--mode-bg);
+            }
+            [data-cat="exit"] {
+                --c: var(--exit);
+                --cb: var(--exit-bg);
+            }
+            [data-cat="nav"] {
+                --c: var(--nav);
+                --cb: var(--nav-bg);
+            }
+            [data-cat="hint"] {
+                --c: var(--hint);
+                --cb: var(--hint-bg);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="panel" id="panel"></div>
+        <script>
+            const CATS = [
+                ["move", "Move / snap"],
+                ["click", "Click"],
+                ["wheel", "Scroll"],
+                ["speed", "Speed"],
+                ["mode", "Mode switch"],
+                ["exit", "Off"],
+                ["nav", "Shortcut"],
+                ["hint", "Hint letter"],
+            ];
 
-// Swedish ISO layout as [id, label, width in keys]. A null id is a spacer.
-const ROWS = [
-  { fn: true, keys: [["esc", "Esc", 1], [null, "", 0.5], ["f1", "F1", 1], ["f2", "F2", 1], ["f3", "F3", 1], ["f4", "F4", 1]] },
-  { keys: [["§", "§", 1], ..."1234567890".split("").map(c => [c, c, 1]), ["+", "+", 1], ["´", "´", 1], ["bksp", "⌫", 2]] },
-  { keys: [["tab", "Tab", 1.5], ..."qwertyuiopå".split("").map(c => [c, c, 1]), ["¨", "¨", 1], ["enter", "Enter", 1.5]] },
-  { keys: [["caps", "Caps", 1.75], ..."asdfghjklöä".split("").map(c => [c, c, 1]), ["'", "'", 1], ["enter2", "", 1.25]] },
-  { keys: [["lshift", "Shift", 1.25], ["<", "<", 1], ..."zxcvbnm,.-".split("").map(c => [c, c, 1]), ["rshift", "Shift", 2.75]] },
-  { keys: [["lctrl", "Ctrl", 1.5], ["win", "Win", 1.25], ["lalt", "Alt", 1.25], ["space", "", 7], ["altgr", "AltGr", 1.25], ["menu", "Menu", 1.25], ["rctrl", "Ctrl", 1.5]] },
-];
+            // Swedish ISO layout as [id, label, width in keys]. A null id is a spacer.
+            const ROWS = [
+                {
+                    fn: true,
+                    keys: [
+                        ["esc", "Esc", 1],
+                        [null, "", 0.5],
+                        ["f1", "F1", 1],
+                        ["f2", "F2", 1],
+                        ["f3", "F3", 1],
+                        ["f4", "F4", 1],
+                    ],
+                },
+                {
+                    keys: [
+                        ["§", "§", 1],
+                        ..."1234567890".split("").map((c) => [c, c, 1]),
+                        ["+", "+", 1],
+                        ["´", "´", 1],
+                        ["bksp", "⌫", 2],
+                    ],
+                },
+                {
+                    keys: [
+                        ["tab", "Tab", 1.5],
+                        ..."qwertyuiopå".split("").map((c) => [c, c, 1]),
+                        ["¨", "¨", 1],
+                        ["enter", "Enter", 1.5],
+                    ],
+                },
+                {
+                    keys: [
+                        ["caps", "Caps", 1.75],
+                        ..."asdfghjklöä".split("").map((c) => [c, c, 1]),
+                        ["'", "'", 1],
+                        ["enter2", "", 1.25],
+                    ],
+                },
+                {
+                    keys: [
+                        ["lshift", "Shift", 1.25],
+                        ["<", "<", 1],
+                        ..."zxcvbnm,.-".split("").map((c) => [c, c, 1]),
+                        ["rshift", "Shift", 2.75],
+                    ],
+                },
+                {
+                    keys: [
+                        ["lctrl", "Ctrl", 1.5],
+                        ["win", "Win", 1.25],
+                        ["lalt", "Alt", 1.25],
+                        ["space", "", 7],
+                        ["altgr", "AltGr", 1.25],
+                        ["menu", "Menu", 1.25],
+                        ["rctrl", "Ctrl", 1.5],
+                    ],
+                },
+            ];
 
-const hintKeys = (keys, label = "") => Object.fromEntries(keys.split(" ").map(k => [k, ["hint", label]]));
-const dirs = (verb) => ({ h: ["move", verb + " ←"], j: ["move", verb + " ↓"], k: ["move", verb + " ↑"], l: ["move", verb + " →"] });
-// key-alias.hint1key and key-alias.hint2key.
-const HINT1 = "q w e r t a s d f g z x c v b y u i o p h j k l ö n m , . -";
-const HINT2 = "q w e r u i o p a s d f j k l ö z x c v m , . -";
+            const hintKeys = (keys, label = "") =>
+                Object.fromEntries(
+                    keys.split(" ").map((k) => [k, ["hint", label]]),
+                );
+            const dirs = (verb) => ({
+                h: ["move", verb + " ←"],
+                j: ["move", verb + " ↓"],
+                k: ["move", verb + " ↑"],
+                l: ["move", verb + " →"],
+            });
+            // key-alias.hint1key and key-alias.hint2key.
+            const HINT1 =
+                "q w e r t a s d f g z x c v b y u i o p h j k l ö n m , . -";
+            const HINT2 = "q w e r u i o p a s d f j k l ö z x c v m , . -";
 
-// Mode id (used in the URL hash and image file names) -> key id -> [category, action label].
-const MODES = {
-  off: { lalt: ["mode", "Hold+⌫: on"], bksp: ["mode", "Alt+⌫: on Shift+Alt+⌫: hints"], lshift: ["mode", "+Alt+⌫: hints"], tab: ["nav", "Hold+h/l: desktop"], h: ["nav", "Tab+h: Desk ←"], l: ["nav", "Tab+l: Desk →"] },
-  normal: { ...dirs(""),
-    "ö": ["click", "Left"], menu: ["click", "Left"], "ä": ["click", "Right"], rshift: ["click", "Middle"], n: ["click", "Toggle L"], ".": ["exit", "Click, off"],
-    ",": ["wheel", "Scroll ↑"], m: ["wheel", "Scroll ↓"], u: ["wheel", "Scroll ←"], o: ["wheel", "Scroll →"],
-    v: ["speed", "Hold: fast"], lshift: ["speed", "Hold: slow +g: window"], bksp: ["speed", "Hold: crawl"],
-    lctrl: ["mode", "Hold+hjkl: edge"], g: ["mode", "Grid"], f: ["mode", "Hints"], c: ["mode", "Screens"], lalt: ["mode", "Hold+f: UI hints"],
-    q: ["exit", "Off"], p: ["exit", "Off"], esc: ["exit", "Off"], f2: ["exit", "Off"], f3: ["exit", "Off"],
-    t: ["nav", "Back"], y: ["nav", "Fwd"], tab: ["nav", "Hold+h/l: desktop"] },
-  edge: { ...dirs("Snap"), lctrl: ["mode", "Hold"], "ö": ["click", "Ctrl-L"], "ä": ["click", "Ctrl-R"], n: ["click", "Ctrl-tog"] },
-  grid: { ...dirs("Keep"), g: ["mode", "Back"], esc: ["mode", "Back"], q: ["exit", "Off"], p: ["exit", "Off"] },
-  window: { ...dirs("Edge"), lshift: ["speed", "Hold"], g: ["mode", "Center"] },
-  hint: { ...hintKeys(HINT1), lshift: ["speed", "Hold+last: fine"], esc: ["mode", "Cancel"], bksp: ["mode", "Cancel"] },
-  fine: { ...hintKeys(HINT2), esc: ["mode", "Normal"], bksp: ["mode", "Back"] },
-  screen: { ...hintKeys("j k l ö a s d f g", "Screen"), c: ["mode", "Back"], esc: ["mode", "Back"], bksp: ["mode", "Back"], q: ["exit", "Off"], p: ["exit", "Off"] },
-  ui: { ...hintKeys(HINT1), esc: ["exit", "Off"], bksp: ["exit", "Off"] },
-};
+            // Mode id (used in the URL hash and image file names) -> key id -> [category, action label].
+            const MODES = {
+                off: {
+                    lalt: ["mode", "Hold+⌫: on"],
+                    bksp: ["mode", "Alt+⌫: on Shift+Alt+⌫: hints"],
+                    lshift: ["mode", "+Alt+⌫: hints"],
+                    tab: ["nav", "Hold+h/l: desktop"],
+                    h: ["nav", "Tab+h: Desk ←"],
+                    l: ["nav", "Tab+l: Desk →"],
+                },
+                normal: {
+                    ...dirs(""),
+                    ö: ["click", "Left"],
+                    menu: ["click", "Left"],
+                    ä: ["click", "Right"],
+                    rshift: ["click", "Middle"],
+                    n: ["click", "Toggle L"],
+                    ".": ["exit", "Click, off"],
+                    ",": ["wheel", "Scroll ↑"],
+                    m: ["wheel", "Scroll ↓"],
+                    u: ["wheel", "Scroll ←"],
+                    o: ["wheel", "Scroll →"],
+                    v: ["speed", "Hold: fast"],
+                    lshift: ["speed", "Hold: slow +g: window"],
+                    bksp: ["speed", "Hold: crawl"],
+                    lctrl: ["mode", "Hold+hjkl: edge"],
+                    g: ["mode", "Grid"],
+                    f: ["mode", "Hints"],
+                    c: ["mode", "Screens"],
+                    lalt: ["mode", "Hold+f: UI hints"],
+                    q: ["exit", "Off"],
+                    p: ["exit", "Off"],
+                    esc: ["exit", "Off"],
+                    f2: ["exit", "Off"],
+                    f3: ["exit", "Off"],
+                    t: ["nav", "Back"],
+                    y: ["nav", "Fwd"],
+                    tab: ["nav", "Hold+h/l: desktop"],
+                },
+                edge: {
+                    ...dirs("Snap"),
+                    lctrl: ["mode", "Hold"],
+                    ö: ["click", "Ctrl-L"],
+                    ä: ["click", "Ctrl-R"],
+                    n: ["click", "Ctrl-tog"],
+                },
+                grid: {
+                    ...dirs("Keep"),
+                    g: ["mode", "Back"],
+                    esc: ["mode", "Back"],
+                    q: ["exit", "Off"],
+                    p: ["exit", "Off"],
+                },
+                window: {
+                    ...dirs("Edge"),
+                    lshift: ["speed", "Hold"],
+                    g: ["mode", "Center"],
+                },
+                hint: {
+                    ...hintKeys(HINT1),
+                    lshift: ["speed", "Hold+last: fine"],
+                    esc: ["mode", "Cancel"],
+                    bksp: ["mode", "Cancel"],
+                },
+                fine: {
+                    ...hintKeys(HINT2),
+                    esc: ["mode", "Normal"],
+                    bksp: ["mode", "Back"],
+                },
+                screen: {
+                    ...hintKeys("j k l ö a s d f g", "Screen"),
+                    c: ["mode", "Back"],
+                    esc: ["mode", "Back"],
+                    bksp: ["mode", "Back"],
+                    q: ["exit", "Off"],
+                    p: ["exit", "Off"],
+                },
+                ui: {
+                    ...hintKeys(HINT1),
+                    esc: ["exit", "Off"],
+                    bksp: ["exit", "Off"],
+                },
+            };
 
-const [modeId, theme] = location.hash.slice(1).split("-");
-const mode = MODES[modeId] || MODES.normal;
-document.documentElement.dataset.theme = theme === "dark" ? "dark" : "light";
+            const [modeId, theme] = location.hash.slice(1).split("-");
+            const mode = MODES[modeId] || MODES.normal;
+            document.documentElement.dataset.theme =
+                theme === "dark" ? "dark" : "light";
 
-const panel = document.getElementById("panel");
-for (const row of ROWS) {
-  const r = document.createElement("div");
-  r.className = "row" + (row.fn ? " fn" : "");
-  for (const [id, label, w] of row.keys) {
-    const k = document.createElement("div");
-    k.className = "k" + (id ? "" : " gap");
-    k.style.width = `calc(var(--u) * ${w} + var(--gap) * ${w - 1})`;
-    const [cat, act] = (id && mode[id]) || [];
-    if (cat) k.dataset.cat = cat;
-    k.innerHTML = '<span class="cap"></span><span class="act"></span>';
-    k.querySelector(".cap").textContent = label;
-    k.querySelector(".act").textContent = act || "";
-    // Combo labels like "Hold+h/l: desktop" need a smaller size to fit two lines on a 1.25u key.
-    if (act && act.length > 12) k.querySelector(".act").classList.add("long");
-    r.appendChild(k);
-  }
-  panel.appendChild(r);
-}
+            const panel = document.getElementById("panel");
+            for (const row of ROWS) {
+                const r = document.createElement("div");
+                r.className = "row" + (row.fn ? " fn" : "");
+                for (const [id, label, w] of row.keys) {
+                    const k = document.createElement("div");
+                    k.className = "k" + (id ? "" : " gap");
+                    k.style.width = `calc(var(--u) * ${w} + var(--gap) * ${w - 1})`;
+                    const [cat, act] = (id && mode[id]) || [];
+                    if (cat) k.dataset.cat = cat;
+                    k.innerHTML =
+                        '<span class="cap"></span><span class="act"></span>';
+                    k.querySelector(".cap").textContent = label;
+                    k.querySelector(".act").textContent = act || "";
+                    // Combo labels like "Hold+h/l: desktop" need a smaller size to fit two lines on a 1.25u key.
+                    if (act && act.length > 12)
+                        k.querySelector(".act").classList.add("long");
+                    r.appendChild(k);
+                }
+                panel.appendChild(r);
+            }
 
-// Legend lists only the categories this mode uses.
-const used = new Set(Object.values(mode).map(([cat]) => cat));
-const legend = document.createElement("div");
-legend.className = "legend";
-for (const [cat, name] of CATS.filter(([cat]) => used.has(cat))) {
-  const s = document.createElement("span");
-  s.dataset.cat = cat;
-  s.innerHTML = "<i></i>";
-  s.append(name);
-  legend.appendChild(s);
-}
-panel.appendChild(legend);
-</script>
-</body>
+            // Legend lists only the categories this mode uses.
+            const used = new Set(Object.values(mode).map(([cat]) => cat));
+            const legend = document.createElement("div");
+            legend.className = "legend";
+            for (const [cat, name] of CATS.filter(([cat]) => used.has(cat))) {
+                const s = document.createElement("span");
+                s.dataset.cat = cat;
+                s.innerHTML = "<i></i>";
+                s.append(name);
+                legend.appendChild(s);
+            }
+            panel.appendChild(legend);
+        </script>
+    </body>
 </html>
