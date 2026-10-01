@@ -72,7 +72,7 @@ Arrow keys do the same as <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> fo
 |---|---|
 | <kbd>Ctrl</kbd> + any click key | Ctrl-click |
 | <kbd>t</kbd> / <kbd>y</kbd> | Back / forward (sends <kbd>Alt</kbd>+<kbd>←</kbd> / <kbd>Alt</kbd>+<kbd>→</kbd>) |
-| <kbd>Tab</kbd>+<kbd>h</kbd> / <kbd>Tab</kbd>+<kbd>l</kbd> | Previous / next virtual desktop. Works when mousemaster is off too |
+| <kbd>Alt</kbd>+<kbd>Tab</kbd> | Switches window as usual, then centres the pointer on the new window. Works when mousemaster is off too |
 
 ## Other modes
 
