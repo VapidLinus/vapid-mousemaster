@@ -95,7 +95,7 @@ Arrow keys do the same as <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> fo
 | Normal | | 2 200 | 800 | 2 000 |
 | Fast | <kbd>v</kbd> | 4 500 | 3 000 | 10 000 |
 
-The pointer starts at 0 and accelerates. Scrolling starts at 1 500. While scrolling up or down, Shift slows the wheel and is not passed to the app, so apps don't read it as a sideways scroll.
+The pointer starts at 0 and accelerates. Scrolling starts at 1 500. While mousemaster is on, Shift, v and ⌫ don't reach the app, so holding them for speed types nothing and doesn't turn a vertical scroll sideways. With Shift held, <kbd>f</kbd>, <kbd>c</kbd>, <kbd>t</kbd> and <kbd>y</kbd> do nothing.
 
 | Screen | Hint cell (px) | Hint layout (rows × columns) | Fine hint cell (px) | Fine hint max (rows × columns) |
 |---|--:|--:|--:|--:|
